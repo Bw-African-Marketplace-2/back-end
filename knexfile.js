@@ -5,7 +5,7 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './dev.sqlite3'
+      filename: './database.users.db3'
     },
     useNullAsDefault: true,
     pool : {
@@ -38,7 +38,7 @@ module.exports = {
 
   production: {
     client: 'postgresql',
-    connection: pgConnection,      
+    connection: process.env.DATABASE_URL,    
     pool: {
       min: 2,
       max: 10
