@@ -61,16 +61,16 @@ exports.up = function (knex) {
       // name
       category.string("category_name", 155).notNullable();
     })
-    .createTable("sub_category", sub => {
+    .createTable("sub_category", sub_category => {
       //id
-      sub.increments();
+      sub_category.increments();
 
       //name------->string
 
-      sub.string("sub_category_name", 156);
+      sub_category.string("sub_category_name", 156);
 
       //category_id --------->FOREIGN KEY
-      sub
+      sub_category
         .integer("category_id")
         .unsigned()
         .notNullable()
