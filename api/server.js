@@ -3,8 +3,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 
 // Routers
+const authenticate = require('../auth/authenticator.js')
 const authRouter = require("../auth/auth-router.js");
-const authenticator = require("../auth/authenticator.js");
+const productRouter = require('../products/products-router.js');
+const priceRouter = require('../prices/prices-router')
 
 //Server = express framework
 const server = express();
@@ -16,8 +18,11 @@ const server = express();
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
-server.use("/api/users", authenticator, authRouter)
+
+// Server
 server.use("/api/auth", authRouter);
+server.use('/api/products', authenticate, productRouter);
+server.use('/api/prices', authenticate, priceRouter);
 
 server.get("/", (req, res) => {
   res.json({ api: "up" });

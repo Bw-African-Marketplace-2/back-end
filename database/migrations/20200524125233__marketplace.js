@@ -1,101 +1,143 @@
 exports.up = function (knex) {
-  return knex.schema.createTable("users", users => {
+  return knex.schema
+    .createTable("users", (users) => {
       //id
-    users.increments();
+      users.increments();
 
-    // username
+      // username
 
-    users.string("username", 128).notNullable().unique();
+      users.string("username", 128).notNullable().unique();
 
-    //password
-    users.string("password", 128).notNullable();
+      //password
+      users.string("password", 128).notNullable();
 
-    // First name
+      // First name
 
-    users.string("first_name", 120);
+      users.string("first_name", 120);
 
-    // Last name
+      // Last name
 
-    users.string("last_name", 120);
+      users.string("last_name", 120);
 
-    //Email
+      //Email
 
-    users.string("email", 120).notNullable().unique();
-  })
+      users.string("email", 120).notNullable().unique();
+    })
 
-  .createTable("products", products => {
+    .createTable("products", (products) => {
+      //id
+      products.increments();
 
-   //id
-   products.increments()
+      //name---------------->string--------------> notnullable
 
-   //name
+      products.string("product_name", 128).notNullable();
 
-   products.string("product_name", 128).notNullable()
+      //image
 
-   //image
+      products.binary("image", 255);
 
-   products.binary("image", 255)
+      //description --------> string 
 
-   //description
+      products.string("description", 255);
 
-   products.string("description", 255)
+      // price---------> integer-------->notnullable
 
-   // price
+      products.integer("price").notNullable();
 
-   products.integer("price").notNullable
+      // user_id --------->FOREIGN KEY
+      products
+        .integer("user_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("users")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+    })
 
-   // user_id FOREIGN KEY
-   products
-   .integer('user_id')
-   .unsigned()
-   .notNullable()
-   .references('id')
-   .inTable('users')
-   .onDelete('CASCADE')
-   .onUpdate('CASCADE');
+    .createTable("category", category => {
+      //id
+      category.increments();
+      // name
+      category.string("category_name", 155).notNullable();
+    })
+    .createTable("sub_category", sub => {
+      //id
+      sub.increments();
 
-})
+      //name------->string
 
-.createTable("sub_category", sub => {
-    //id
-sub.increments()
+      sub.string("sub_category_name", 156);
 
-//name
-sub.string("sub_category_name", 156)
+      //category_id --------->FOREIGN KEY
+      sub
+        .integer("category_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("category")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+    })
 
-//category_id FOREIGN KEY
-sub
-.integer('category_id')
-.unsigned()
-.notNullable()
-.references('id')
-.inTable('category')
-.onDelete('CASCADE')
-.onUpdate('CASCADE');
-})
+    .createTable("prices", prices => {
+      //id
+      prices.increments();
+      // name
+      prices.string("product_name", 156).notNullable();
+      //image
+      prices.binary("image", 255);
 
+      // price
 
+      prices.integer("price").notNullable();
+      // category_id --------->FOREIGN KEY
 
+      prices
+        .integer("category_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("category")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
 
+      //sub_id -------> FOREIGN KEY
+      prices
+        .integer("sub_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("sub_category")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
 
+      //location_id --------> FOREIGN KEY
+      prices
+        .integer("location_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("location")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+    })
 
+    .createTable("location", location => {
+      //id
+      location.increments();
 
-}
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
+      //name -------->string---------->notnullable
+      location.string("locationName").notNullable();
+    });
+};
 
 exports.down = function (knex, Promise) {
-  return knex.schema.dropTableIfExists("users");
+  return knex.schema
+    .dropTableIfExists("users")
+    .dropTableIfExists("products")
+    .dropTableIfExists("category")
+    .dropTableIfExists("sub_category")
+    .dropTableIfExists("prices")
+    .dropTableIfExists("location");
 };
