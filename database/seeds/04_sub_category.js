@@ -1,7 +1,8 @@
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-
+  return knex("sub_category").truncate()
+  .then(function () {
       return knex('sub_category').insert([
         {
           sub_category_name:"Animal Products",
@@ -133,4 +134,6 @@ exports.seed = function(knex) {
         }
         
       ]);
+
+    })
 }

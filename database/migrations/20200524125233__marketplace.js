@@ -46,7 +46,7 @@ exports.up = function (knex) {
 
       // user_id --------->FOREIGN KEY
       products
-        .integer("user_id")
+        .integer("users_id")
         .unsigned()
         .notNullable()
         .references("id")
@@ -104,7 +104,7 @@ exports.up = function (knex) {
 
       //sub_id -------> FOREIGN KEY
       prices
-        .integer("sub_id")
+        .integer("sub_category_id")
         .unsigned()
         .notNullable()
         .references("id")

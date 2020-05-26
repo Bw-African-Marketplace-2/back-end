@@ -6,15 +6,15 @@ module.exports = {
 }
 
 function get() {
-    return db('relevantPricing as r')
-    .select("r.productName","r.price", "r.image", "s.subCategoryName as subCategory", "l.locationName as location")
-    .join("subCategory as s", "r.sub_id", "s.id")
+    return db('prices')
+    .select("r.product_name","r.price", "r.image", "s.sub_category_name as sub-category", "l.locationName as location")
+    .join("sub_category as s", "r.sub_id", "s.id")
     .join("location as l", "r.location_id", "l.id")
     
 };
 
 function getById(id) {
-    return db('relevantPricing')
+    return db('prices')
         .where(({ id }))
         .first()
 }
