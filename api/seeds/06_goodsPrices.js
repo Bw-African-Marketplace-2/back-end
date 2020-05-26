@@ -1,9 +1,9 @@
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex("prices")
+  return knex("goodsPrices")
     .truncate()
     .then(function () {
-      return knex("prices").insert([
+      return knex("goodsPrices").insert([
         {
           product_name: "Wheat Flour",
           image: "http://agrodaily.com/wp-content/uploads/2016/04/wheat.png",

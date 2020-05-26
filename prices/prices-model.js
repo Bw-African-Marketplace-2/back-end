@@ -1,4 +1,4 @@
-const db = require('../database/dbConfig');
+const db = require('../api/dbConfig');
 
 module.exports = {
     get,
@@ -6,10 +6,10 @@ module.exports = {
 }
 
 function get() {
-    return db('prices')
-    .select("r.product_name","r.price", "r.image", "s.sub_category_name as sub-category", "l.locationName as location")
-    .join("sub_category as s", "r.sub_id", "s.id")
-    .join("location as l", "r.location_id", "l.id")
+    return db('goodsPrices as g')
+    .select("g.product_name","g.price", "g.image", "s.sub_category_name as sub-category", "l.locationName as location")
+    .join("sub_category as s", "g.sub_category_id", "s.id")
+    .join("location as l", "g.location_id", "l.id")
     
 };
 
