@@ -17,7 +17,7 @@ exports.seed = function (knex) {
           image:
             "https://purepng.com/public/uploads/large/purepng.com-meatfood-meat-red-fresh-grill-cook-beef-steak-9415246237676ksid.png",
           price: 14,
-          category_id: 11,
+          category_id: 1,
           sub_category_id: 3,
           location_id: 15,
         },

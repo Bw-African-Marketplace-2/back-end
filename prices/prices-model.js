@@ -14,7 +14,7 @@ function get() {
 };
 
 function getById(id) {
-    return db('prices')
+    return db('goodsPrices')
         .where(({ id }))
         .first()
 }
