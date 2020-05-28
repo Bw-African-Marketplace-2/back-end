@@ -19,7 +19,7 @@ function get() {
         'image',
         'description',
         'price',
-        'users.id AS user_id',
+        'users.id AS users_id',
     )
     .join('users', 'users.id', 'products.users_id')
         
@@ -33,10 +33,10 @@ function getUserProducts(users_id) {
                 'image',
                 'description',
                 'price',
-                'users.id AS user_id'
+                'users.id AS users_id'
             )
         .join('users', 'users.id', 'products.users_id')
-        .where('products.users_id', users_id)
+        .where('products.users_id', "users_id")
 }
 
 function getById(id) {
