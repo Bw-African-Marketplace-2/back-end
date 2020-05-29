@@ -7,7 +7,7 @@ Users = require('../auth/auth-model');
 
 
 /************** GET PRODUCTS **************/
-router.get('/', restricted, (req, res) => {
+router.get('/',  (req, res) => {
     Products.get()
         .then(item => {
             res.status(200).json(item)
@@ -20,7 +20,7 @@ router.get('/', restricted, (req, res) => {
 
 
 /************* GET PRODUCTS BY USER ID *************/
-router.get('/:id', restricted, validateUserId, (req, res) => {
+router.get('/:id', restricted,  validateUserId, (req, res) => {
     const userId = req.params.id
     Products.getUserProducts(userId)
         .then(item => {
@@ -34,11 +34,11 @@ router.get('/:id', restricted, validateUserId, (req, res) => {
 
 
 /************** ADD USER PRODUCT **************/
-router.post('/add',  (req, res) => {
+router.post('/add', restricted,  (req, res) => {
     console.log(req.body)
     Products.add(req.body)
-        .then(pets => {
-            res.status(201).json(pets);
+        .then(item => {
+            res.status(201).json(item);
         })
         .catch(err => {
             console.log('POST Products', err)

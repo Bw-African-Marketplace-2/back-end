@@ -46,7 +46,7 @@ exports.up = function (knex) {
   
         products.integer("price").notNullable();
   
-        // user_id --------->FOREIGN KEY
+        // users_id --------->FOREIGN KEY
         products
           .integer("users_id")
           .unsigned()

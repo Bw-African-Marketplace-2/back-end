@@ -71,3 +71,12 @@ function remove(id) {
         .where('id', id)
         .del()
 }
+// ./produsts/productsModel.js
+async function insert(product) {
+    // the second parameter here is of other databases, SQLite returns the id by default
+    const [id] = await db('products').insert(product, 'id');
+  
+    return db('products')
+      .where({ id })
+      .first();
+  }
