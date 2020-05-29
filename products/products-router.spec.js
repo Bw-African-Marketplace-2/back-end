@@ -20,8 +20,52 @@ describe("products", function () {
         
         })
       })
-    
-    })
+    it('should add a product with the right name', async function() {
+          const login = await request(server)
+          .post("/api/auth/login")
+        .send({username: "lambda", password: "apple", email: "peter@lambda.com"})
+        console.log(login.body)
+//make a POST request to / endpoint
+const res = await request(server)
+.post("/api/products/add").set("authorization", login.body.token)
+                let product = await Products.add({
+                        product_name: "Milk", 
+                        description:"Beautiful fresh farmed brown eggs.",
+                        price:3,
+                        users_id:2
+                })
+            })
+            
+            it('should delete a product ', async function() {
+                const login = await request(server)
+                .post("/api/auth/login")
+              .send({username: "lambda", password: "apple", email: "peter@lambda.com"})
+              console.log(login.body)
+      //make a POST request to / endpoint
+      const res = await request(server)
+      .delete("/api/products/delete/:1d").set("authorization", login.body.token)
+                      let product = await Products.add({
+                              product_name: "Milk", 
+                              description:"Beautiful fresh farmed brown eggs.",
+                              price:3,
+                              users_id:2
+                      })
+                  })
+            
+
+    //   it('post /', async function () {
+    //             const login = await request(server)
+    //             .post("/api/auth/login")
+    //             .send({username: "lambda", password: "apple", email: "peter@lambda.com"})
+    //             console.log(login.body)
+
+    //             const res = await request(server)
+    //                 .post('/api/products').set("authorization", login.body.token)
+    //             expect(res.status).toBe(201)
+    //             expect(res.body[1]).toEqual(item)
+    //             expect(res.type).toMatch(/json/)
+    //         })
+    // })
 
 
 
@@ -109,5 +153,4 @@ describe("products", function () {
 //             expect(product.product_name).toBe("Milk")
 //         });
 
-//     })
-// })
+    })
